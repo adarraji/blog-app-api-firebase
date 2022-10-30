@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/adarraji/blog-app-api/issues"
   },
-  "homepage": "https://github.com/adarraji/blog-app-api#readme"
+  "homepage": "https://github.com/adarraji/blog-app-api#readme",
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  }
 }
