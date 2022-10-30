@@ -1,4 +1,12 @@
 const expres = require("express");
+const knex = require("knex");
+require("dotenv").config();
+
+const db = knex({
+    client: 'pg',
+    connection: process.env.PG_DATABASE_URL,
+});
+
 
 const app = expres();
 app.use(expres.json());
