@@ -1,4 +1,4 @@
-# Blog Ap REST API
+# Blog App REST API
 
 Backend server for Blog Ap.
 
