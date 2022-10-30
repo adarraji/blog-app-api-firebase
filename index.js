@@ -7,6 +7,7 @@ const db = knex({
     connection: process.env.PG_DATABASE_URL,
 });
 
+console.log(db.select("*").from("users"));
 
 const app = expres();
 app.use(expres.json());
