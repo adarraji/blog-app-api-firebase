@@ -1,1 +1,1 @@
-Blog App API
+Blog App API.
