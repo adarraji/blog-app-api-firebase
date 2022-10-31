@@ -7,7 +7,15 @@ const db = knex({
     connection: process.env.PG_DATABASE_URL,
 });
 
-console.log(db.select("*").from("users"));
+// db("users").insert({
+//     email: "tes23@gmail.com",
+//     name: "user2",
+//     joined: new Date()
+// }).then(console.log)
+
+db.select("*").from("users").then(data => {
+    console.log(data);
+})
 
 const app = expres();
 app.use(expres.json());
