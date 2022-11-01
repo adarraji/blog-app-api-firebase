@@ -32,7 +32,39 @@ const register = async (req, res) => {
     }
 };
 
-const login = (req, res) => {
+
+const login = async (req, res) => {
+    const { username, password } = req.body;
+
+    // CHECK IF FIELDS ARE EMPTY
+    if (!username || !password) {
+        return res.status(400).json("Invalid form submission");
+    }
+
+    try {
+
+        // CHECK IF USER EXISTS IN DB
+        const data = await db.select("*").from("users").where("username", "=", username);
+        if (data.length === 0) {
+            return res.status(404).json("User not found");
+
+        }
+
+        // GET USER FROM DB
+        const user = await db.select("username", "password").from("users").where("username", "=", username);
+
+        // COMPARE PASSWORD
+        const isPasswordCorrect = bcrypt.compareSync(password, user[0].password);
+
+        if (!isPasswordCorrect) {
+            return res.status(400).json("Wrong username or password")
+        }
+
+
+    }
+    catch (err) {
+        return res.status(400).json("unable to login");
+    }
 
 };
 

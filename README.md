@@ -13,6 +13,8 @@ To run the application
 * Node.js
 * Express.js
 * PstgreSQL
+* Knex
+* JSON Web Token
 
 ## Environmental Variables
 
