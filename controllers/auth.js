@@ -1,6 +1,7 @@
 const db = require("../db");
-const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+require("dotenv").config();
 
 const register = async (req, res) => {
 
@@ -49,21 +50,30 @@ const login = async (req, res) => {
 
         if (data.length === 0) {
             return res.status(404).json("Wrong username or password");
-
         }
 
         // COMPARE PASSWORD
-        const isPasswordCorrect = bcrypt.compareSync(password, data[0].password);
+        const isPasswordCorrect = bcrypt.compareSync(req.body.password, data[0].password);
 
         if (!isPasswordCorrect) {
             return res.status(400).json("Wrong username or password")
         }
+
+        // CREATE TOKEN USING ID FROM USERS TABLE BECAUSE IT'S FORIEGN KEY IN POSTS TABLE. SO USER AFTER LOGIN WILL CHANGE ONLY POSTS FOR THAT USER
+        const token = jwt.sign({ id: data[0].id }, process.env.JWT_SEC);
+
+        // REMOVE PASSWORD FROM RETURNED DATA
+        const { password, ...other } = data[0];
+
+        // RESPONSE WITH COOCKIE AND DATA WITHOUT PASSOWRD
+        res.cookie("access_token", token, {
+            httpOnly: true
+        }).status(200).json(other);
     }
     catch (err) {
         console.log(err)
         return res.status(400).json("unable to login");
     }
-
 };
 
 const logout = (req, res) => {

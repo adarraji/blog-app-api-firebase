@@ -27,6 +27,9 @@ if you are using local postgres database you can use the following:
 `PG_DATABASE_URL=postgres://{user}:{password}@{hostname}:{port}/{database-name}`
 
 
+### JSON Web Token secret key
+
+Add the JWT secret `JWT_SEC` in `controllers/auth.js`
 
 
 ## Deployment
