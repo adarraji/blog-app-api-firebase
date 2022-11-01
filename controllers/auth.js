@@ -11,7 +11,7 @@ const register = async (req, res) => {
 
     try {
 
-        // CHECK EXISING USER
+        // CHECK EXISTING USER
         const data = await db.select("*").from("users").where("username", "=", username).orWhere("email", "=", email);
 
         if (data.length) {
