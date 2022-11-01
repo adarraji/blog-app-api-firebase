@@ -1,7 +1,3 @@
-const addPost = (req, res) => {
-    res.json("from controller");
-};
+const router = require("express").Router();
 
-module.exports = {
-    addPost: addPost
-};
+module.exports = router;

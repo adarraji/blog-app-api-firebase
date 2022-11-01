@@ -1,6 +1,8 @@
 const express = require("express");
 const knex = require("knex");
 require("dotenv").config();
+const authRoute = require("./routes/auth");
+const userRoute = require("./routes/users");
 const postRoute = require("./routes/posts");
 
 const db = knex({
@@ -11,6 +13,8 @@ const db = knex({
 const app = express();
 app.use(express.json());
 
+app.use("/api/auth", authRoute);
+app.use("/api/users", userRoute);
 app.use("/api/posts", postRoute);
 
 
