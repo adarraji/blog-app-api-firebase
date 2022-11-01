@@ -25,10 +25,10 @@ const register = async (req, res) => {
 
         // INSERT USER
         const user = await db("users").insert({ username: username, email: email, password: hash }).returning("username");
-        res.status(201).json(user);
+        return res.status(201).json(user);
     }
     catch (err) {
-        res.status(400).json("unable to register");
+        return res.status(400).json("unable to register");
     }
 };
 
