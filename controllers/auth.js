@@ -1,3 +1,5 @@
+const db = require("../db");
+
 const register = (req, res) => {
 
 };

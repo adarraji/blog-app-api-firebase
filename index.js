@@ -1,15 +1,9 @@
 const express = require("express");
-const knex = require("knex");
+
 require("dotenv").config();
 const authRoute = require("./routes/auth");
 const userRoute = require("./routes/users");
 const postRoute = require("./routes/posts");
-
-const db = knex({
-    client: 'pg',
-    connection: process.env.PG_DATABASE_URL,
-});
-
 const app = express();
 app.use(express.json());
 
