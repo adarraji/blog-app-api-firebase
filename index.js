@@ -1,6 +1,7 @@
 const express = require("express");
 const knex = require("knex");
 require("dotenv").config();
+const postRoute = require("./routes/posts");
 
 const db = knex({
     client: 'pg',
@@ -9,6 +10,8 @@ const db = knex({
 
 const app = express();
 app.use(express.json());
+
+app.use("/api/posts", postRoute);
 
 
 app.listen(process.env.POST || "3000", () => {
