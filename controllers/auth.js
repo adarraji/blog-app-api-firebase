@@ -1,4 +1,5 @@
 const db = require("../db");
+const bcrypt = require('bcryptjs');
 
 const register = async (req, res) => {
 
@@ -8,6 +9,10 @@ const register = async (req, res) => {
     if (!username || !email || !password) {
         return res.status(400).json("Invalid form submission");
     }
+
+    // HASH THE PASSWORD        
+    var salt = bcrypt.genSaltSync(10);
+    var hash = bcrypt.hashSync(password, salt);
 
     try {
 
@@ -19,7 +24,7 @@ const register = async (req, res) => {
         }
 
         // INSERT USER
-        const user = await db("users").insert({ username: username, email: email, password: password }).returning("username");
+        const user = await db("users").insert({ username: username, email: email, password: hash }).returning("username");
         res.status(201).json(user);
     }
     catch (err) {
