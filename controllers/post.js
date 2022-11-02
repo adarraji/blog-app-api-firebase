@@ -23,8 +23,14 @@ const getPosts = async (req, res) => {
 
 };
 
-const getPost = (req, res) => {
-
+const getPost = async (req, res) => {
+    const id = req.params.id;
+    try {
+        const data = await db.select("*").from("posts").where("uid", "=", id);
+        res.status(200).json(data);
+    } catch (err) {
+        res.status(400).json("unable to get post");
+    }
 };
 
 const addPosts = (req, res) => {
