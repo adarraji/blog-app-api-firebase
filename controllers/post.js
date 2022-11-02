@@ -3,9 +3,15 @@ const db = require("../db");
 const getPosts = async (req, res) => {
     const category = req.query.cat;
     try {
+
+        // CHECK IF THERE IS A CATEGORY QUERY IN URL
         if (category) {
+
+            // GET ALL POSTS FOR THAT CATEGORY
             const data = await db.select("*").from("posts").where("cat", "=", category);
             res.status(200).json(data);
+
+            // IF THERE NO QUERY IN URL, GET ALL POSTS
         } else {
             const data = await db.select("*").from("posts");
             res.status(200).json(data);
