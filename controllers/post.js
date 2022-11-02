@@ -1,6 +1,19 @@
 const db = require("../db");
 
-const getPosts = (req, res) => {
+const getPosts = async (req, res) => {
+    const category = req.query.cat;
+    try {
+        if (category) {
+            const data = await db.select("*").from("posts").where("cat", "=", category);
+            res.status(200).json(data);
+        } else {
+            const data = await db.select("*").from("posts");
+            res.status(200).json(data);
+        }
+
+    } catch (err) {
+        res.status(400).json("unable to get posts");
+    }
 
 };
 
