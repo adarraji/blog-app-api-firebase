@@ -26,9 +26,18 @@ const getPosts = async (req, res) => {
 const getPost = async (req, res) => {
     const id = req.params.id;
     try {
-        const data = await db.select("*").from("posts").where("uid", "=", id);
+
+        // GET POSTS USING USER ID FROM URL. JOINING ON USERS.ID AND POSTS.UID FOREIGN KEY
+        // u is alias for users table. p is alias for posts table. userImg is alias for user.img column
+        // This is ewuivelent to postgreSQL query: 'select p.id, username, title, descr, p.img, u.img as userImg, cat, date from users u join posts p on u.id = p.uid;'
+
+        const data = await db.select("p.id", "username", "title", "descr", "p.img", { userImg: "u.img" }, "cat", "date")
+            .from({ u: "users" }).join({ p: "posts" }, "u.id", "=", "p.uid")
+            .where("p.uid", "=", id);
+
         res.status(200).json(data);
     } catch (err) {
+        console.log(err);
         res.status(400).json("unable to get post");
     }
 };
