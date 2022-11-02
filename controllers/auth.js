@@ -45,7 +45,7 @@ const login = async (req, res) => {
 
     try {
 
-        // CHECK IF USER EXISTS IN DB
+        // CHECK IF USER EXISTS IN DB. RETURNS AN ARRAY WITH 1 OBJECT THAT CONTAINS USER INFO (ROW)
         const data = await db.select("*").from("users").where("username", "=", username);
 
         if (data.length === 0) {
