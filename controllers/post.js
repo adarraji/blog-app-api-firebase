@@ -23,6 +23,10 @@ const getPosts = async (req, res) => {
 
 };
 
+const getPost = (req, res) => {
+
+};
+
 const addPosts = (req, res) => {
 
 };
@@ -37,6 +41,7 @@ const deletePosts = (req, res) => {
 
 module.exports = {
     getPosts: getPosts,
+    getPost: getPost,
     addPosts: addPosts,
     updatePosts: updatePosts,
     deletePosts: deletePosts

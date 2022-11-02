@@ -1,9 +1,9 @@
 
 const router = require("express").Router();
-const { getPosts, addPosts, updatePosts, deletePosts } = require("../controllers/post");
+const { getPosts, getPost, addPosts, updatePosts, deletePosts } = require("../controllers/post");
 
 router.get("/", getPosts);
-router.get("/:id", getPosts);
+router.get("/:id", getPost);
 router.post("/", addPosts);
 router.delete("/:id", updatePosts);
 router.put("/:id", deletePosts);
