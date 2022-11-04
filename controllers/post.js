@@ -72,8 +72,12 @@ const deletePosts = async (req, res) => {
                 return res.status(403).json("Token is not valid");
             }
 
-
             const postTd = req.params.id;
+
+            // CHECK POST ID IS VALID
+            if (isNaN(postTd)) {
+                return res.status(400).json("Enter a valid post ID");
+            }
 
             // CHECK IF POST EXISTS
             const post = await db.select("*").from("posts").where("id", "=", postTd);
@@ -92,7 +96,7 @@ const deletePosts = async (req, res) => {
             }
         });
     } catch (err) {
-        res.status(403).json("Can't delete the post");
+        res.status(403).json("unable to delete the post");
     }
 
 
