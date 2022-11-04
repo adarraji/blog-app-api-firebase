@@ -92,7 +92,7 @@ const deletePosts = async (req, res) => {
             }
         });
     } catch (err) {
-        json.status(403).json("Can't delete the post");
+        res.status(403).json("Can't delete the post");
     }
 
 
