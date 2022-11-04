@@ -5,8 +5,10 @@ const { verifyToken } = require("./verifyToken");
 
 router.get("/", getPosts);
 router.get("/:id", getPost);
-router.post("/", addPosts);
-router.delete("/:id", verifyToken, deletePosts);  // Apply verifyToken middleware
+
+// Apply verifyToken middleware to make sure user is logged in
+router.post("/", verifyToken, addPosts);
+router.delete("/:id", verifyToken, deletePosts);
 router.put("/:id", updatePosts);
 
 

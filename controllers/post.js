@@ -45,8 +45,19 @@ const getPost = async (req, res) => {
     }
 };
 
-const addPosts = (req, res) => {
+const addPosts = async (req, res) => {
+    const { title, descr, img, cat, date } = req.body;
 
+    // GET USER ID. IT WAS ADDED TO THE REQUEST USING VERIFYTOKEN MIDDLEWARE
+    const userId = req.userinfo.id
+
+    try {
+        const post = await db("posts").insert({ title: title, descr: descr, img: img, cat: cat, date: date, uid: userId }).returning("*");
+        res.status(201).json(post);
+
+    } catch (err) {
+        res.status(403).json("unable to add post");
+    }
 };
 
 const updatePosts = (req, res) => {
