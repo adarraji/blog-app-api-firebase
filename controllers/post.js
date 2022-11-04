@@ -3,7 +3,6 @@ require("dotenv").config();
 const jwt = require("jsonwebtoken");
 const { json } = require("express");
 
-
 const getPosts = async (req, res) => {
     const category = req.query.cat;
     try {
