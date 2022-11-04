@@ -54,46 +54,33 @@ const updatePosts = (req, res) => {
 };
 
 const deletePosts = async (req, res) => {
-    const token = req.cookies.access_token;
-
-    // CHECK IF THERE IS A TOKEN
-    if (!token) {
-        return res.status(401).json("Not authenticated");
-    }
-
     try {
+        const postId = req.params.id;
 
-        // VERIFY TOKEN. USE THE JWT SECRET KEY. IT RETURNS USER ID BECAUSE IT WAS USED TO CREATE THE TOKEN WHEN USER LOGGED IN
-        jwt.verify(token, process.env.JWT_SEC, async (err, userinfo) => {
+        // GET USER ID. IT WAS ADDED TO THE REQUEST USING VERIFYTOKEN MIDDLEWARE
+        const userId = req.userinfo.id
 
-            // INVALID TOKEN
-            if (err) {
-                return res.status(403).json("Token is not valid");
-            }
+        // CHECK POST ID IS VALID
+        if (isNaN(postId)) {
+            return res.status(400).json("Enter a valid post ID");
+        }
 
-            const postTd = req.params.id;
+        // CHECK IF POST EXISTS
+        const post = await db.select("*").from("posts").where("id", "=", postId);
+        if (post.length === 0) {
+            return res.status(404).json("post doesn't exist");
+        }
 
-            // CHECK POST ID IS VALID
-            if (isNaN(postTd)) {
-                return res.status(400).json("Enter a valid post ID");
-            }
-
-            // CHECK IF POST EXISTS
-            const post = await db.select("*").from("posts").where("id", "=", postTd);
-            if (post.length === 0) {
-                return res.status(404).json("post doesn't exist");
-            }
-
-            // DELETE POST. ALLOW ONLY THE UESR SPECIFIED IN posts.uid TO DELETE THE POST.
-            // RETURNS 1 IF POST WAS DELETED
-            // RETURNS 0 IF POST WASN'T DELETED (EXAMPLE: UID IS NOT THE RIGHT USER)
-            const data = await db("posts").where("id", "=", postTd).andWhere("uid", "=", userinfo.id).del();
-            if (!data) {
-                return res.status(403).json("You can delete only your post");
-            } else {
-                return res.status(200).json("Post has been delete");
-            }
-        });
+        // DELETE POST. ALLOW ONLY THE UESR SPECIFIED IN posts.uid TO DELETE THE POST.
+        // RETURNS 1 IF POST WAS DELETED
+        // RETURNS 0 IF POST WASN'T DELETED (EXAMPLE: UID IS NOT THE RIGHT USER)
+        const data = await db("posts").where("id", "=", postId).andWhere("uid", "=", userId).del();
+        if (!data) {
+            return res.status(403).json("You can delete only your post");
+        } else {
+            return res.status(200).json("Post has been delete");
+        }
+        // });
     } catch (err) {
         res.status(403).json("unable to delete the post");
     }
