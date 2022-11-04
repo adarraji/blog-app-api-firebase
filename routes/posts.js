@@ -5,8 +5,9 @@ const { getPosts, getPost, addPosts, updatePosts, deletePosts } = require("../co
 router.get("/", getPosts);
 router.get("/:id", getPost);
 router.post("/", addPosts);
-router.delete("/:id", updatePosts);
-router.put("/:id", deletePosts);
+router.delete("/:id", deletePosts);
+router.put("/:id", updatePosts);
+
 
 
 module.exports = router;

@@ -61,11 +61,25 @@ const deletePosts = async (req, res) => {
         return res.status(401).json("Not authenticated");
     }
 
-    jwt.verify(token, process.env.JWT_SEC, (err, userinfo) => {
+    // VERIFY TOKEN. USE THE JWT SECRET KEY. IT RETURNS USER ID BECAUSE IT WAS USED TO CREATE THE TOKEN WHEN USER LOGGED IN
+    jwt.verify(token, process.env.JWT_SEC, async (err, userinfo) => {
+
+        // INVALID TOKEN
         if (err) {
             return res.status(403).json("Token is not valid");
         }
-        console.log(userinfo);
+
+
+        const postTd = req.params.id;
+
+        // CHECK IF POST EXISTS
+        const post = await db.select("*").from("posts").where("id", "=", postTd);
+        if (post.length === 0) {
+            return res.status(404).json("post doesn't exist");
+        }
+
+        // DELETE POST
+        const data = await db("posts").where("id", postTd).del();
     })
 
 };
