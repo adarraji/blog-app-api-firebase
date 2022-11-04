@@ -35,7 +35,7 @@ const getPost = async (req, res) => {
             .from({ u: "users" }).join({ p: "posts" }, "u.id", "=", "p.uid")
             .where("p.uid", "=", id);
 
-        res.status(200).json(data);
+        res.status(200).json(data[0]);
     } catch (err) {
         console.log(err);
         res.status(400).json("unable to get post");
