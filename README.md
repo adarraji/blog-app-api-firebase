@@ -29,7 +29,7 @@ if you are using local postgres database you can use the following:
 
 ### JSON Web Token secret key
 
-Add the JWT secret `JWT_SEC` in `controllers/auth.js`
+Add the JWT secret `JWT_SEC` in `controllers/auth.js` and `controllers/post.js` 
 
 
 ## Deployment

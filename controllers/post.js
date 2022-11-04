@@ -1,4 +1,7 @@
 const db = require("../db");
+require("dotenv").config();
+const jwt = require("jsonwebtoken");
+
 
 const getPosts = async (req, res) => {
     const category = req.query.cat;
@@ -18,7 +21,7 @@ const getPosts = async (req, res) => {
         }
 
     } catch (err) {
-        res.status(400).json("unable to get posts");
+        res.status(500).json("unable to get posts");
     }
 
 };
@@ -38,7 +41,7 @@ const getPost = async (req, res) => {
         res.status(200).json(data[0]);
     } catch (err) {
         console.log(err);
-        res.status(400).json("unable to get post");
+        res.status(500).json("unable to get post");
     }
 };
 
@@ -50,7 +53,20 @@ const updatePosts = (req, res) => {
 
 };
 
-const deletePosts = (req, res) => {
+const deletePosts = async (req, res) => {
+    const token = req.cookies.access_token;
+
+    // CHECK IF THERE IS A TOKEN
+    if (!token) {
+        return res.status(401).json("Not authenticated");
+    }
+
+    jwt.verify(token, process.env.JWT_SEC, (err, userinfo) => {
+        if (err) {
+            return res.status(403).json("Token is not valid");
+        }
+        console.log(userinfo);
+    })
 
 };
 
