@@ -82,7 +82,14 @@ const deletePosts = async (req, res) => {
             }
 
             // DELETE POST. ALLOW ONLY THE UESR SPECIFIED IN posts.uid TO DELETE THE POST.
+            // RETURNS 1 IF POST WAS DELETED
+            // RETURNS 0 IF POST WASN'T DELETED (EXAMPLE: UID IS NOT THE RIGHT USER)
             const data = await db("posts").where("id", "=", postTd).andWhere("uid", "=", userinfo.id).del();
+            if (!data) {
+                return res.status(403).json("You can delete only your post");
+            } else {
+                return res.status(200).json("Post has been delete");
+            }
         });
     } catch (err) {
         json.status(403).json("Can't delete the post");
