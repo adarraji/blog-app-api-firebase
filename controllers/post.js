@@ -1,6 +1,7 @@
 const db = require("../db");
 require("dotenv").config();
 const jwt = require("jsonwebtoken");
+const { json } = require("express");
 
 
 const getPosts = async (req, res) => {
@@ -61,26 +62,32 @@ const deletePosts = async (req, res) => {
         return res.status(401).json("Not authenticated");
     }
 
-    // VERIFY TOKEN. USE THE JWT SECRET KEY. IT RETURNS USER ID BECAUSE IT WAS USED TO CREATE THE TOKEN WHEN USER LOGGED IN
-    jwt.verify(token, process.env.JWT_SEC, async (err, userinfo) => {
+    try {
 
-        // INVALID TOKEN
-        if (err) {
-            return res.status(403).json("Token is not valid");
-        }
+        // VERIFY TOKEN. USE THE JWT SECRET KEY. IT RETURNS USER ID BECAUSE IT WAS USED TO CREATE THE TOKEN WHEN USER LOGGED IN
+        jwt.verify(token, process.env.JWT_SEC, async (err, userinfo) => {
+
+            // INVALID TOKEN
+            if (err) {
+                return res.status(403).json("Token is not valid");
+            }
 
 
-        const postTd = req.params.id;
+            const postTd = req.params.id;
 
-        // CHECK IF POST EXISTS
-        const post = await db.select("*").from("posts").where("id", "=", postTd);
-        if (post.length === 0) {
-            return res.status(404).json("post doesn't exist");
-        }
+            // CHECK IF POST EXISTS
+            const post = await db.select("*").from("posts").where("id", "=", postTd);
+            if (post.length === 0) {
+                return res.status(404).json("post doesn't exist");
+            }
 
-        // DELETE POST
-        const data = await db("posts").where("id", postTd).del();
-    })
+            // DELETE POST. ALLOW ONLY THE UESR SPECIFIED IN posts.uid TO DELETE THE POST.
+            const data = await db("posts").where("id", "=", postTd).andWhere("uid", "=", userinfo.id).del();
+        });
+    } catch (err) {
+        json.status(403).json("Can't delete the post");
+    }
+
 
 };
 
