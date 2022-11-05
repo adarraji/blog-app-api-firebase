@@ -14,6 +14,7 @@ To run the application
 * Express.js
 * PstgreSQL
 * Knex
+* Bcrypt
 * JSON Web Token
 
 ## Environmental Variables
