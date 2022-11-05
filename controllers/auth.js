@@ -71,7 +71,6 @@ const login = async (req, res) => {
         }).status(200).json(other);
     }
     catch (err) {
-        console.log(err)
         return res.status(400).json("unable to login");
     }
 };
