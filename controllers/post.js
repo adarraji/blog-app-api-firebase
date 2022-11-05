@@ -60,7 +60,45 @@ const addPosts = async (req, res) => {
     }
 };
 
-const updatePosts = (req, res) => {
+const updatePosts = async (req, res) => {
+
+    const { title, descr, img, cat } = req.body;
+
+    const postId = req.params.id;
+
+    // GET USER ID. IT WAS ADDED TO THE REQUEST USING VERIFYTOKEN MIDDLEWARE
+    const userId = req.userinfo.id;
+
+    // CHECK POST ID IS VALID
+    if (isNaN(postId)) {
+        return res.status(400).json("Enter a valid post ID");
+    }
+
+    try {
+
+        // CHECK IF POST EXISTS
+        const post = await db.select("*").from("posts").where("id", "=", postId);
+        if (post.length === 0) {
+            return res.status(404).json("Post doesn't exist");
+        }
+
+        // UPDATE POST. ALLOW ONLY THE UESR SPECIFIED IN posts.uid TO UPDATE THE POST.
+        // RETURNS AN ARRAY WITH POST IF POST WAS UPATED
+        // RETURNS EMPTY ARRAY IF POST WASN'T UPDATED (EXAMPLE: UID IS NOT THE RIGHT USER)
+        const data = await db("posts")
+            .update({ title: title, descr: descr, img: img, cat: cat })
+            .where("id", "=", postId)
+            .andWhere("uid", "=", userId)
+            .returning("*");
+        if (data.length === 0) {
+            return res.status(403).json("You can delete only your post");
+        } else {
+            return res.status(201).json(data);
+        }
+
+    } catch (err) {
+        res.status(403).json("unable to add post");
+    }
 
 };
 

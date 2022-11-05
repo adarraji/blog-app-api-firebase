@@ -9,7 +9,7 @@ router.get("/:id", getPost);
 // Apply verifyToken middleware to make sure user is logged in
 router.post("/", verifyToken, addPosts);
 router.delete("/:id", verifyToken, deletePosts);
-router.put("/:id", updatePosts);
+router.put("/:id", verifyToken, updatePosts);
 
 
 
