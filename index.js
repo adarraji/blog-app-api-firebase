@@ -1,15 +1,18 @@
 const express = require("express");
 const cookieParser = require("cookie-parser");
+const cors = require("cors");
+const multer = require("multer");
 const authRoute = require("./routes/auth");
 const userRoute = require("./routes/users");
 const postRoute = require("./routes/posts");
-const multer = require("multer");
+
 
 require("dotenv").config();
 
 const app = express();
 app.use(express.json());
 app.use(cookieParser());
+app.use(cors());
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
