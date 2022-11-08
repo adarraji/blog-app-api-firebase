@@ -12,7 +12,13 @@ require("dotenv").config();
 const app = express();
 app.use(express.json());
 app.use(cookieParser());
-app.use(cors());
+
+const corsConfig = {
+    origin: true,
+    credentials: true,
+};
+
+app.use(cors(corsConfig));
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
