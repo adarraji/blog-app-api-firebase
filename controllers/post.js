@@ -30,14 +30,13 @@ const getPost = async (req, res) => {
     const id = req.params.id;
     try {
 
-        // GET POSTS USING USER ID FROM URL. JOINING ON USERS.ID AND POSTS.UID FOREIGN KEY
+        // GET POSTS USING POST ID FROM URL. JOINING ON USERS.ID AND POSTS.UID FOREIGN KEY
         // u is alias for users table. p is alias for posts table. userImg is alias for user.img column
-        // This is equivalent to postgreSQL query: 'select p.id, username, title, descr, p.img, u.img as userImg, cat, date from users u join posts p on u.id = p.uid;'
+        // This is equivalent to postgreSQL query: 'select p.id, username, title, descr, p.img, u.img as userImg, cat, date from users u join posts p on u.id = p.uid where p.id = 14;'
 
         const data = await db.select("p.id", "username", "title", "descr", "p.img", { userImg: "u.img" }, "cat", "date")
             .from({ u: "users" }).join({ p: "posts" }, "u.id", "=", "p.uid")
-            .where("p.uid", "=", id);
-
+            .where("p.id", "=", id);
         res.status(200).json(data[0]);
     } catch (err) {
         console.log(err);
