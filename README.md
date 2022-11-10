@@ -33,7 +33,7 @@ Add your PstgreSQL url `PG_DATABASE_URL` in the `index.js`
 if you are using local postgres database you can use the following:
 
 `PG_DATABASE_URL=postgres://{user}:{password}@{hostname}:{port}/{database-name}`
-
+<br/>
 
 ### JSON Web Token secret key
 
