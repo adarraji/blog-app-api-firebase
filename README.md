@@ -11,6 +11,7 @@ To run the application
 1. Clone this repo
 2. Run `npm install`
 3. Run `npm start`
+<br/>
 
 ## Built With
 
@@ -20,12 +21,13 @@ To run the application
 * Knex
 * Bcrypt
 * JSON Web Token
+<br/>
 
 ## Environmental Variables
 
 ### Database URL
 
-You must add your MongoDB url `PG_DATABASE_URL` in the `index.js`
+Add your PstgreSQL url `PG_DATABASE_URL` in the `index.js`
 
 if you are using local postgres database you can use the following:
 
