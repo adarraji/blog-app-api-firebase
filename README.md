@@ -1,6 +1,7 @@
 # Blog App REST API
 
-Backend server for Blog Ap.
+Backend server for [Blog Frontend Web application](https://github.com/adarraji/blog-app).
+
 
 To run the application
 
