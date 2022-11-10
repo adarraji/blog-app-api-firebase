@@ -3,6 +3,9 @@
 Backend server for [Blog Frontend Web application](https://github.com/adarraji/blog-app).
 
 
+Created using Node.js, Express.js and PstgreSQL. This server inlcudes Node.js CRUD operations and fetching with PstgreSQL queries . Also to provide security, This server uses JSON Web Token and verify user requests.
+
+
 To run the application
 
 1. Clone this repo
