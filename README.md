@@ -21,6 +21,7 @@ To run the application
 * Knex
 * Bcrypt
 * JSON Web Token
+* Multer
 <br/>
 
 ## Environmental Variables
