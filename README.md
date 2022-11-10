@@ -39,6 +39,7 @@ if you are using local postgres database you can use the following:
 
 Add the JWT secret `JWT_SEC` in `controllers/auth.js` and `controllers/post.js` 
 <br/>
+<br/>
 
 ## Authors
 
