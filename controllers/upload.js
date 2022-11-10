@@ -3,7 +3,7 @@ require("dotenv").config();
 const getFileName = (req, res) => {
     try {
         const file = req.file;
-        return res.status(200).json(`${process.env.SERVER_URL}/uploads/` + file.filename);
+        return res.status(200).json(`${process.env.SERVER_URL}:${process.env.PORT}/uploads/` + file.filename);
     }
     catch (err) {
         return res.status(500).json("Unable to upload file");
