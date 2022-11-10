@@ -25,6 +25,8 @@ app.use("/api/users", userRoute);
 app.use("/api/posts", postRoute);
 app.use("/api/upload", uploadRoute);
 
+app.use("/uploads", express.static("uploads"));
+
 app.listen(process.env.POST || "3000", () => {
     console.log("app is running on port 3000");
 })
