@@ -49,14 +49,14 @@ const login = async (req, res) => {
         const data = await db.select("*").from("users").where("username", "=", username);
 
         if (data.length === 0) {
-            return res.status(404).json("Wrong username or password");
+            return res.status(404).json("Wrong username");
         }
 
         // COMPARE PASSWORD
         const isPasswordCorrect = bcrypt.compareSync(req.body.password, data[0].password);
 
         if (!isPasswordCorrect) {
-            return res.status(400).json("Wrong username or password")
+            return res.status(400).json("Wrong password")
         }
 
         // CREATE TOKEN USING ID FROM USERS TABLE BECAUSE IT'S FORIEGN KEY IN POSTS TABLE. SO USER AFTER LOGIN WILL CHANGE ONLY POSTS FOR THAT USER
