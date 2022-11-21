@@ -68,7 +68,8 @@ const login = async (req, res) => {
 
         // RESPONSE WITH COOCKIE AND DATA WITHOUT PASSOWRD
         res.cookie("access_token", token, {
-            httpOnly: true
+            httpOnly: true,
+            sameSite: "none"
         }).status(200).json(other);
     }
     catch (err) {
