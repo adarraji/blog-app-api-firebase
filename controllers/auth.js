@@ -61,7 +61,6 @@ const login = async (req, res) => {
 
         // CREATE TOKEN USING ID FROM USERS TABLE BECAUSE IT'S FORIEGN KEY IN POSTS TABLE. SO USER AFTER LOGIN WILL CHANGE ONLY POSTS FOR THAT USER
         const token = jwt.sign({ id: data[0].id }, process.env.JWT_SEC);
-        console.log("===== Token =====  ", token)
 
         // REMOVE PASSWORD FROM RETURNED DATA
         const { password, ...other } = data[0];
