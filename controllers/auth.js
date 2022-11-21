@@ -68,6 +68,7 @@ const login = async (req, res) => {
         // RESPONSE WITH COOCKIE AND DATA WITHOUT PASSOWRD 
         res.header('Access-Control-Allow-Credentials', true);
         res.header('Access-Control-Allow-Origin', req.headers.origin);
+        res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,UPDATE,OPTIONS');
         res.cookie("access_token", token, {
             httpOnly: true,
             sameSite: "none",
