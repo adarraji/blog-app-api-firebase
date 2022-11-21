@@ -69,7 +69,8 @@ const login = async (req, res) => {
         res.header('Access-Control-Allow-Origin', req.headers.origin);
         res.cookie("access_token", token, {
             httpOnly: true,
-            sameSite: "none"
+            sameSite: "none",
+            secure: false
         }).status(200).json(other);
     }
     catch (err) {
