@@ -65,11 +65,7 @@ const login = async (req, res) => {
         // REMOVE PASSWORD FROM RETURNED DATA
         const { password, ...other } = data[0];
 
-        // RESPONSE WITH COOCKIE AND DATA WITHOUT PASSOWRD   
-        res.header('Access-Control-Allow-Credentials', true);
-        res.header('Access-Control-Allow-Origin', req.headers.origin);
-        res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,UPDATE,OPTIONS');
-        res.header('Access-Control-Allow-Headers', 'X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept');
+        // RESPONSE WITH COOCKIE AND DATA WITHOUT PASSOWRD          
         res.cookie("access_token", token, {
             httpOnly: true,
         }).status(200).json(other);
