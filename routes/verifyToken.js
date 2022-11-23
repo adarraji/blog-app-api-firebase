@@ -2,10 +2,15 @@ const jwt = require("jsonwebtoken");
 require("dotenv").config();
 
 const verifyToken = (req, res, next) => {
-    const token = req.cookies.access_token;
+    let token = null;
+    const authHeader = req.headers.token;
+
+    console.log(authHeader)
 
     // CHECK IF THERE IS A TOKEN
-    if (!token) {
+    if (authHeader) {
+        token = authHeader.split(" ")[1];
+    } else {
         return res.status(401).json("Not authenticated");
     }
 
