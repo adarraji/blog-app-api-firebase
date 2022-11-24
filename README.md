@@ -1,9 +1,9 @@
 # Blog App REST API
 
-Backend server for [Blog Frontend Web application](https://github.com/adarraji/blog-app).
+Backend server for [Blog Frontend Web application](https://github.com/adarraji/blog-app-firebase).
 
 
-Created using Node.js, Express.js and PstgreSQL. This server inlcudes Node.js CRUD operations and fetching with PstgreSQL queries . Also to provide security, This server uses JSON Web Token and verify user requests. The images are received from fronend and uploaded using multer middleware.
+Created using Node.js, Express.js and PstgreSQL. This server inlcudes Node.js CRUD operations and fetching with PstgreSQL queries . Also to provide security, This server uses JSON Web Token and verify user requests. 
 
 
 To run the application
