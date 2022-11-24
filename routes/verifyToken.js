@@ -5,8 +5,6 @@ const verifyToken = (req, res, next) => {
     let token = null;
     const authHeader = req.headers.token;
 
-    console.log(authHeader)
-
     // CHECK IF THERE IS A TOKEN
     if (authHeader) {
         token = authHeader.split(" ")[1];
