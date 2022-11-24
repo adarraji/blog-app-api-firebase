@@ -3,7 +3,7 @@
 Backend server for [Blog Frontend Web application](https://github.com/adarraji/blog-app-firebase).
 
 
-Created using Node.js, Express.js and PstgreSQL. This server inlcudes Node.js CRUD operations and fetching with PstgreSQL queries . Also to provide security, This server uses JSON Web Token and verify user requests. 
+Created using Node.js, Express.js and PostgreSQL. This server inlcudes Node.js CRUD operations and fetching with PstgreSQL queries . Also to provide security, This server uses JSON Web Token and verify user requests. 
 
 
 To run the application
@@ -42,8 +42,9 @@ Add the JWT secret `JWT_SEC` in `controllers/auth.js` and `controllers/post.js`
 
 ## Deployment
 
-Deployed on [Renders](https://render.com/)
+Backend deployed on [Render](https://render.com/)
 
+PostgreSQL deployed on [Supbase](https://supabase.com/database)
 
 
 ## Authors  
