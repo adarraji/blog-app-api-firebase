@@ -40,6 +40,12 @@ Add the JWT secret `JWT_SEC` in `controllers/auth.js` and `controllers/post.js`
 <br/>
 <br/>
 
-## Authors
+## Deployment
+
+Deployed on [Renders](https://render.com/)
+
+
+
+## Authors  
 
 - **Ali Darraji** - [https://github.com/adarraji](https://github.com/adarraji)
